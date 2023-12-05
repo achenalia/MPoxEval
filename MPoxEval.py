@@ -4,6 +4,9 @@ from sklearn.preprocessing import LabelEncoder
 from keras.models import Sequential
 from keras.layers import Dense
 
+# THIS CODE IS MY OWN WORK, IT WAS WRITTEN WITHOUT CONSULTING
+# A TUTOR OR CODE WRITTEN BY OTHER STUDENTS - ESME RICHARDSON
+
 # Read the dataset provided and outline the different categories necessary:
 data = pd.read_csv("MPox_Dataset.csv")
 features = ['Rectal Pain', 'Sore Throat', 'Oedema below the Waist', 'Oral Lesions',
@@ -47,69 +50,47 @@ while systemic_illness not in ['yes', 'no']:
     print("Please enter a valid response: Yes or No.")
     systemic_illness = input().strip().lower()
 
-# Initialize user input dictionary
+# Init user_input storage for answers:
 user_input = {}
 
-# Ask each feature's question separately and gather user responses
+# Print beginning instruction:
 print("\nAnswer the following questions:")
+# Dictionary of questions to be asked:
+questions = {
+    'Rectal Pain': "Are you suffering from Rectal Pain? (Yes/No): ",
+    'Sore Throat': "Are you suffering from a Sore Throat? (Yes/No): ",
+    'Oedema below the Waist': "Are you experiencing Oedema (swelling) below the Waist? (Yes/No): ",
+    'Oral Lesions': "Are you suffering from Oral Lesions (ie. sores)? (Yes/No): ",
+    'Solitary Lesion': "Are you suffering from Solitary Lesions (ie. sores) anywhere on your body? (Yes/No): ",
+    'Swollen Tonsils': "Are you suffering from Swollen Tonsils? (Yes/No): ",
+    'HIV Infection': "Has your physician diagnosed you with an HIV Infection? (Yes/No): ",
+    'Sexually Transmitted Infection': "Has your physician diagnosed you with a Sexually Transmitted Infection (STI)? "
+                                      "(Yes/No):"
+}
 
-# Ask 'Rectal Pain' question
-user_input['Rectal Pain'] = input("Are you suffering from Rectal Pain? (Yes/No): ").strip().lower()
-while user_input['Rectal Pain'] not in ['yes', 'no']:
-    print("Please enter a valid response: Yes or No.")
-    user_input['Rectal Pain'] = input("Are you suffering from Rectal Pain? (Yes/No): ").strip().lower()
-
-# Ask 'Sore Throat' question
-user_input['Sore Throat'] = input("Are you suffering from a Sore Throat? (Yes/No): ").strip().lower()
-while user_input['Sore Throat'] not in ['yes', 'no']:
-    print("Please enter a valid response: Yes or No.")
-    user_input['Sore Throat'] = input("Are you suffering from a Sore Throat? (Yes/No): ").strip().lower()
-
-# Ask 'Oedema below the Waist' question
-user_input['Oedema below the Waist'] = input("Are you experiencing Oedema (swelling) below the Waist? (Yes/No): ").strip().lower()
-while user_input['Oedema below the Waist'] not in ['yes', 'no']:
-    print("Please enter a valid response: Yes or No.")
-    user_input['Oedema below the Waist'] = input("Are you experiencing Oedema (swelling) below the Waist? (Yes/No): ").strip().lower()
-
-# Ask 'Oral Lesions' question
-user_input['Oral Lesions'] = input("Are you suffering from Oral Lesions (ie. sores)? (Yes/No): ").strip().lower()
-while user_input['Oral Lesions'] not in ['yes', 'no']:
-    print("Please enter a valid response: Yes or No.")
-    user_input['Oral Lesions'] = input("Are you suffering from Oral Lesions (ie. sores)? (Yes/No): ").strip().lower()
-
-# Ask 'Solitary Lesion' question
-user_input['Solitary Lesion'] = input("Are you suffering from Solitary Lesions (ie. sores) anywhere on your body? ("
-                                      "Yes/No): ").strip().lower()
-while user_input['Solitary Lesion'] not in ['yes', 'no']:
-    print("Please enter a valid response: Yes or No.")
-    user_input['Solitary Lesion'] = input("Are you suffering from Solitary Lesions (ie. sores) anywhere on your body? "
-                                          "(Yes/No): ").strip().lower()
-
-# Ask 'Swollen Tonsils' question
-user_input['Swollen Tonsils'] = input("Are you suffering from Swollen Tonsils? (Yes/No): ").strip().lower()
-while user_input['Swollen Tonsils'] not in ['yes', 'no']:
-    print("Please enter a valid response: Yes or No.")
-    user_input['Swollen Tonsils'] = input("Are you suffering from Swollen Tonsils? (Yes/No): ").strip().lower()
-
-# Ask 'HIV Infection' question
-user_input['HIV Infection'] = input("Has your physician diagnosed you with an HIV Infection? (Yes/No): ").strip().lower()
-while user_input['HIV Infection'] not in ['yes', 'no']:
-    print("Please enter a valid response: Yes or No.")
-    user_input['HIV Infection'] = input("Has your physician diagnosed you with an HIV Infection? (Yes/No): ").strip().lower()
-
-# Ask 'Sexually Transmitted Infection' question
-user_input['Sexually Transmitted Infection'] = input("Has your physician diagnosed you with a Sexually Transmitted "
-                                                     "Infection (STI)? (Yes/No): ").strip().lower()
-while user_input['Sexually Transmitted Infection'] not in ['yes', 'no']:
-    print("Please enter a valid response: Yes or No.")
-    user_input['Sexually Transmitted Infection'] = input("Has your physician diagnosed you with a Sexually Transmitted "
-                                                         "Infection (STI)? (Yes/No): ").strip().lower()
+# Ask the questions in the dictionary and encode the user's input:
+for feature, question in questions.items():
+    answer = input(question).strip().lower()
+    while answer not in ['yes', 'no']:
+        print("Please enter a valid response: Yes or No.")
+        answer = input(question).strip().lower()
+    user_input[feature] = answer
 
 # Transform user input into DataFrame for prediction:
 user_data = pd.DataFrame([user_input])
 
+# Create dummy variables for user input:
+user_data = pd.get_dummies(user_data)
+
+# Ensure user input contains all features by aligning columns:
+missing_cols = set(X.columns) - set(user_data.columns)
+for col in missing_cols:
+    user_data[col] = 0
+
+user_data = user_data[X.columns]
+
 # Use the ANN to create predictions to output:
-prediction = model.predict(user_data[features])
+prediction = model.predict(user_data)
 
 # Print predictions to user:
 if prediction >= 0.6 or systemic_illness == 'yes':
