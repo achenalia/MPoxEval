@@ -7,6 +7,14 @@ from keras.layers import Dense
 # THIS CODE IS MY OWN WORK, IT WAS WRITTEN WITHOUT CONSULTING
 # A TUTOR OR CODE WRITTEN BY OTHER STUDENTS - ESME RICHARDSON
 
+# Preprocessing used: Since this file contains data such as Patient ID, I have ensured that this category is not
+# considered in the program. Once irrelevant data is found, it is important to only encode the attributes necessary
+# for the program to function, excluding those deemed not useful. It is also important to consider data which may not
+# fit conventions needed to process it, such as values other than TRUE/FALSE for boolean-expecting questions such as
+# those for the symptoms. If any mismatched answers are found, these are then excluded from the data used. It is also
+# important to look for null/empty data, which may cause problems down the line, and exclude those as well. After
+# these steps are taken to normalize the data, it is safe to proceed with the processing and pass it to the program.
+
 # Read the dataset provided and outline the different categories necessary:
 data = pd.read_csv("MPox_Dataset.csv")
 features = ['Rectal Pain', 'Sore Throat', 'Oedema below the Waist', 'Oral Lesions',
@@ -42,7 +50,7 @@ print("Welcome to the MPox Test Recommender System -- an Artificial Neural Netwo
       "patient data.")
 print(f"This ANN has an accuracy of {accuracy * 100:.4f}.")
 
-# Ask 'Systemic Illness' question separately
+# Ask 'Systemic Illness' question separately:
 print("Are you experiencing symptoms typical of a Systemic Illness such as Fever, Fatigue, Swollen Lymph Nodes, "
       "or Muscle Weakness? (Yes/No): ")
 systemic_illness = input().strip().lower()
@@ -93,10 +101,12 @@ user_data = user_data[X.columns]
 prediction = model.predict(user_data)
 
 # Print predictions to user:
-if prediction >= 0.6 or systemic_illness == 'yes':
+if prediction >= 0.6:
     print("\nBased on the data you provided, you are recommended to get tested for Monkey-Pox as soon as possible.")
-elif all(value == 'no' for value in user_input.values()):
-    print("\nYou answered 'No' to all symptoms. It is recommended to consult a healthcare professional for evaluation.")
+elif all(value == 'no' for value in user_input.values()) and systemic_illness == 'no':
+    print("\nYou answered 'No' to all symptoms. This means you may not need to be tested for Monkey-Pox, but it is "
+          "recommended to consult a healthcare professional for further "
+          "evaluation if you deem it necessary.")
 else:
     print("\nBased on the data you provided, it does not appear that you need to be tested for Monkey-Pox. However, "
           "due to your symptoms, it is recommended to seek care from a healthcare professional at your earliest "
