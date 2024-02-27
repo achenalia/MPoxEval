@@ -4,17 +4,6 @@ from sklearn.preprocessing import LabelEncoder
 from keras.models import Sequential
 from keras.layers import Dense
 
-# THIS CODE IS MY OWN WORK, IT WAS WRITTEN WITHOUT CONSULTING
-# A TUTOR OR CODE WRITTEN BY OTHER STUDENTS - ESME RICHARDSON
-
-# Preprocessing used: Since this file contains data such as Patient ID, I have ensured that this category is not
-# considered in the program. Once irrelevant data is found, it is important to only encode the attributes necessary
-# for the program to function, excluding those deemed not useful. It is also important to consider data which may not
-# fit conventions needed to process it, such as values other than TRUE/FALSE for boolean-expecting questions such as
-# those for the symptoms. If any mismatched answers are found, these are then excluded from the data used. It is also
-# important to look for null/empty data, which may cause problems down the line, and exclude those as well. After
-# these steps are taken to normalize the data, it is safe to proceed with the processing and pass it to the program.
-
 # Read the dataset provided and outline the different categories necessary:
 data = pd.read_csv("MPox_Dataset.csv")
 features = ['Rectal Pain', 'Sore Throat', 'Oedema below the Waist', 'Oral Lesions',
