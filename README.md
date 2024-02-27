@@ -21,6 +21,25 @@ Users are prompted with questions related to symptoms and systemic illness. Base
 - If the prediction probability is above 0.6, testing for Monkey-Pox is recommended.
 - If all symptom responses are 'No' and systemic illness is not present, further evaluation by a healthcare professional is advised.
 - For other scenarios, seeking medical advice is recommended based on the symptoms reported.
-- DO NOT USE THIS AS YOUR ONLY SOURCE OF MEDICAL ADVICE, SEEK A QUALIFIED HEALTHCARE PROFESSIONAL IF YOU ARE CONCERNED.
+- SEEK MEDICAL ATTENTION IF CONCERNED, DO NOT USE THIS AS ONLY SOURCE OF MEDICAL ADVICE.
 
-Feel free to explore and utilize this AI Monkey-Pox Evaluation Project for informative insights into potential health concerns. Stay informed and proactive about your well-being!
+## Setting Up Environment
+
+### Activating Virtual Environment
+To activate the .venv virtual environment:
+- On Windows:
+  ```
+  .venv\Scripts\activate
+  ```
+- On macOS and Linux:
+  ```
+  source .venv/bin/activate
+  ```
+
+### Installing Dependencies from requirements.txt
+Once the virtual environment is activated, install dependencies using pip:
+```
+pip install -r requirements.txt
+```
+
+By following these steps, you ensure a consistent development environment with all necessary dependencies installed for running the AI Monkey-Pox Evaluation Project. Stay informed and proactive about your health with this innovative tool!
