@@ -30,7 +30,7 @@ model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Set up the model for training:
-model.fit(X_train, y_train, epochs=100, batch_size=32)
+model.fit(X_train, y_train, epochs=300, batch_size=32)
 
 # Set up print statements to welcome the user, explain the system, and display the accuracy of the ANN:
 _, accuracy = model.evaluate(X_test, y_test)
