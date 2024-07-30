@@ -1,7 +1,7 @@
 # AI Monkey-Pox Evaluation Project
 
 ## Overview
-Welcome to the AI Monkey-Pox Evaluation Project! This project utilizes an Artificial Neural Network (ANN) to assess the likelihood of Monkey-Pox based on a set of symptoms and user input. The ANN has been trained on anonymized patient data to provide accurate predictions.
+Welcome to the AI Monkey-Pox Evaluation Project! This project is a local CLI tool which utilizes an Artificial Neural Network to assess symptoms and provide recommendations on Monkey-Pox testing through user input and machine learning to make predictions regarding the patient's monkey-pox risk and whether to seek medical attention based on their responses
 
 ## Dataset
 The dataset used in this project contains information on various symptoms related to Monkey-Pox, such as Rectal Pain, Sore Throat, Oedema below the Waist, Oral Lesions, Solitary Lesion, Swollen Tonsils, HIV Infection, and Sexually Transmitted Infection.
