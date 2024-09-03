@@ -1,4 +1,4 @@
-# AI Monkey-Pox Evaluation Project
+# AI Monkey-Pox Evaluation Project (v1.0.0, re-work coming soon!)
 
 ## Overview
 Welcome to the AI Monkey-Pox Evaluation Project! This project is a local CLI tool which utilizes an Artificial Neural Network to assess symptoms and provide recommendations on Monkey-Pox testing through user input and machine learning to make predictions regarding the patient's monkey-pox risk and whether to seek medical attention based on their responses
